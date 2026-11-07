@@ -112,6 +112,7 @@ body {
 
 .mono {
   font-family: var(--mono);
+  font-variant-ligatures: none;
 }
 
 .code-block,
@@ -122,6 +123,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 8px;
   font-family: var(--mono);
+  font-variant-ligatures: none;
   font-size: 12px;
   line-height: 20px;
   overflow: auto;

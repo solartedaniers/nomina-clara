@@ -28,6 +28,7 @@ import { TokenDto } from '../../../../core/models/compile.models';
       border: 1px solid var(--border);
       background: var(--surface-muted);
       font-family: var(--mono);
+      font-variant-ligatures: none;
       font-size: 12px;
     }
     .token small {

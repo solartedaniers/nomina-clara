@@ -44,6 +44,7 @@ import { WorkspaceStore } from '../../../core/services/workspace.store';
       border-radius: 8px;
       overflow: hidden;
       font-family: var(--mono);
+      font-variant-ligatures: none;
       font-size: 13px;
       line-height: 20px;
       height: 380px;

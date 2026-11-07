@@ -10,16 +10,34 @@ import { OptimizedPanel } from '../panels/optimized-panel/optimized-panel';
 import { SymbolsPanel } from '../panels/symbols-panel/symbols-panel';
 import { TacPanel } from '../panels/tac-panel/tac-panel';
 import { TokensPanel } from '../panels/tokens-panel/tokens-panel';
+import { Icon } from '../../../shared/icon/icon';
+
+// Ícono de cada fase en el encabezado del panel
+const PHASE_ICONS: Record<string, string> = {
+  lexer: 'tokens',
+  parser: 'tree',
+  semantic: 'table',
+  ir: 'code',
+  memory: 'memory',
+  optimizer: 'bolt',
+  codegen: 'chip',
+};
 
 @Component({
   selector: 'app-phase-panel',
-  imports: [TranslatePipe, TokensPanel, AstPanel, SymbolsPanel, TacPanel, MemoryPanel, OptimizedPanel, AssemblyPanel],
+  imports: [TranslatePipe, Icon, TokensPanel, AstPanel, SymbolsPanel, TacPanel, MemoryPanel, OptimizedPanel, AssemblyPanel],
   template: `
     <section class="card panel">
       <header class="card-header">
-        <h2>{{ 'phases.prefix' | t: { number: definition().number } }} · {{ definition().titleKey | t }}</h2>
-        <span class="hint">{{ definition().weekKey | t }}</span>
+        <div class="card-title">
+          <span class="card-icon"><app-icon [name]="icon()" /></span>
+          <div>
+            <h2>{{ 'phases.prefix' | t: { number: definition().number } }} · {{ definition().titleKey | t }}</h2>
+            <p>{{ definition().weekKey | t }}</p>
+          </div>
+        </div>
       </header>
+      <div class="panel-body">
 
       @switch (status()) {
         @case (null) {
@@ -61,11 +79,23 @@ import { TokensPanel } from '../panels/tokens-panel/tokens-panel';
           }
         }
       }
+      </div>
     </section>
   `,
   styles: `
+    :host {
+      display: block;
+    }
     .panel {
+      height: 100%;
       min-height: 360px;
+      display: flex;
+      flex-direction: column;
+    }
+    .panel-body {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
     }
     .empty {
       color: var(--text-muted);
@@ -79,6 +109,8 @@ export class PhasePanel {
   protected readonly definition = computed(
     () => PHASE_DEFINITIONS.find((phase) => phase.key === this.store.selectedPhase()) ?? PHASE_DEFINITIONS[0],
   );
+
+  protected readonly icon = computed(() => PHASE_ICONS[this.definition().key]);
 
   protected readonly status = computed(() => this.store.statusOf(this.definition().key));
 

@@ -1,15 +1,22 @@
 import { Component, computed, inject } from '@angular/core';
 import { TranslatePipe } from '../../../core/i18n/translate.pipe';
+import { Icon } from '../../../shared/icon/icon';
 import { WorkspaceStore } from '../../../core/services/workspace.store';
 
 @Component({
   selector: 'app-rule-editor',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, Icon],
   template: `
     <section class="card">
       <header class="card-header">
-        <h2>{{ 'editor.title' | t }}</h2>
-        <span class="hint">{{ 'editor.hint' | t }}</span>
+        <div class="card-title">
+          <span class="card-icon"><app-icon name="edit" /></span>
+          <div>
+            <h2>{{ 'editor.title' | t }}</h2>
+            <p>{{ 'editor.hint' | t }}</p>
+          </div>
+        </div>
+        <span class="pill">{{ 'editor.lines' | t: { count: lineNumbers().length } }}</span>
       </header>
       <div class="editor">
         <div class="gutter" aria-hidden="true" #gutter>

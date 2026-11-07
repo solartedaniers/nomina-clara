@@ -1,7 +1,8 @@
 {
   "app": {
     "title": "Nómina Clara",
-    "subtitle": "Compilador de reglas de nómina · Compiladores UCC Pasto",
+    "course": "Compiladores · UCC Pasto",
+    "subtitle": "Compilador de reglas de nómina para pequeñas empresas de Pasto",
     "compile": "Compilar y liquidar",
     "compiling": "Compilando…",
     "requestFailed": "No se pudo contactar la API del compilador. Si estás en local, revisa que dev_server.py esté corriendo.",
@@ -18,10 +19,12 @@
   "editor": {
     "title": "Editor de reglas",
     "hint": "Lenguaje Nómina Clara",
-    "line": "línea {{line}}"
+    "line": "línea {{line}}",
+    "lines": "{{count}} líneas"
   },
   "employees": {
     "title": "Empleados",
+    "hint": "Datos que recibe «para cada empleado»",
     "add": "Agregar empleado",
     "remove": "Quitar empleado",
     "name": "Nombre",

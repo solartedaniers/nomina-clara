@@ -18,7 +18,7 @@ Convención: todo el código (archivos, clases, funciones y variables) va en ing
 
 ## Cómo correrlo en local
 
-Necesito Node 20 o superior y Python 3.10 o superior. El compilador no usa librerías externas de Python.
+Necesito Node 22 o superior y Python 3.12 o superior, las mismas versiones que usa el CI. El compilador no usa librerías externas de Python.
 
 ```bash
 npm install

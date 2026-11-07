@@ -42,6 +42,8 @@ export interface TacInstructionDto {
   arg1: string | null;
   arg2: string | null;
   res: string | null;
+  // Línea del programa que generó la instrucción (opcional)
+  line?: number | null;
 }
 
 export interface TacDto {

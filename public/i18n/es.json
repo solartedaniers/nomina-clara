@@ -113,6 +113,23 @@
       "Identifier": "Identificador"
     }
   },
+  "journey": {
+    "title": "Viaje de la línea {{line}}",
+    "titleEmpty": "Viaje de una línea",
+    "subtitle": "Entrada, proceso y salida de esa instrucción en cada fase",
+    "empty": { "title": "Elige una línea del editor", "text": "Haz clic en una línea del programa para seguirla por las 7 fases del compilador." },
+    "input": "Entrada",
+    "process": "Proceso",
+    "output": "Salida",
+    "summaryTag": "resumen de la fase",
+    "lexer": { "input": "Texto de la línea {{line}}", "process": "Regex de TOKEN_SPECS, de izquierda a derecha", "none": "Sin tokens: línea vacía o comentario" },
+    "parser": { "input": "{{count}} tokens", "process": "Reglas EBNF: sentencia → expr → term → factor", "none": "Esta línea no crea nodos propios (llave o comentario)" },
+    "semantic": { "input": "Nodos del AST", "process": "Declara símbolos y verifica tipos", "summary": "{{count}} símbolos en la tabla" },
+    "ir": { "input": "AST verificado", "process": "Genera código de tres direcciones", "summary": "{{count}} instrucciones TAC", "none": "Esta línea no genera instrucciones" },
+    "memory": { "input": "Variables y llamadas", "process": "Ubica datos en Data, Stack y Heap", "summary": "Data: {{data}} · Stack: {{stack}} frames · Heap: {{heap}}" },
+    "optimizer": { "input": "TAC sin optimizar", "process": "Plegado de constantes y limpieza", "summary": "{{before}} → {{after}} instrucciones" },
+    "codegen": { "input": "TAC optimizado", "process": "Traduce a ensamblador con R0, R1 y R2", "summary": "{{count}} líneas · {{spills}} spill(s)" }
+  },
   "symbols": {
     "name": "Identificador",
     "type": "Tipo",

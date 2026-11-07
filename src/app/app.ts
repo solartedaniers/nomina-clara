@@ -7,11 +7,12 @@ import { RuleEditor } from './features/editor/rule-editor/rule-editor';
 import { PayrollTable } from './features/payroll/payroll-table/payroll-table';
 import { PhaseBar } from './features/phases/phase-bar/phase-bar';
 import { PhasePanel } from './features/phases/phase-panel/phase-panel';
+import { LineJourney } from './features/journey/line-journey/line-journey';
 import { Icon } from './shared/icon/icon';
 
 @Component({
   selector: 'app-root',
-  imports: [TranslatePipe, RuleEditor, EmployeeTable, PhaseBar, PhasePanel, PayrollTable, Icon],
+  imports: [TranslatePipe, RuleEditor, EmployeeTable, PhaseBar, PhasePanel, PayrollTable, LineJourney, Icon],
   template: `
     <header class="top-bar">
       <div class="brand">
@@ -58,6 +59,9 @@ import { Icon } from './shared/icon/icon';
       </div>
       <div class="column phase-column">
         <app-phase-panel />
+      </div>
+      <div class="full">
+        <app-line-journey />
       </div>
       <div class="full">
         <app-payroll-table />

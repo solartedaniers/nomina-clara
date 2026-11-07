@@ -26,7 +26,7 @@ class NumberLiteral(Expression):
     literal_type: str = "entero"
 
     def to_dict(self) -> dict:
-        return {"kind": "NumberLiteral", "value": self.value, "type": self.literal_type}
+        return {"kind": "NumberLiteral", "line": self.line, "value": self.value, "type": self.literal_type}
 
 
 @dataclass
@@ -34,7 +34,7 @@ class MoneyLiteral(Expression):
     value: int = 0
 
     def to_dict(self) -> dict:
-        return {"kind": "MoneyLiteral", "value": self.value}
+        return {"kind": "MoneyLiteral", "line": self.line, "value": self.value}
 
 
 @dataclass
@@ -42,7 +42,7 @@ class StringLiteral(Expression):
     value: str = ""
 
     def to_dict(self) -> dict:
-        return {"kind": "StringLiteral", "value": self.value}
+        return {"kind": "StringLiteral", "line": self.line, "value": self.value}
 
 
 @dataclass
@@ -50,7 +50,7 @@ class Identifier(Expression):
     name: str = ""
 
     def to_dict(self) -> dict:
-        return {"kind": "Identifier", "name": self.name}
+        return {"kind": "Identifier", "line": self.line, "name": self.name}
 
 
 @dataclass
@@ -61,7 +61,7 @@ class BinaryOperation(Expression):
 
     def to_dict(self) -> dict:
         return {
-            "kind": "BinaryOperation",
+            "kind": "BinaryOperation", "line": self.line,
             "operator": self.operator,
             "left": self.left.to_dict() if self.left else None,
             "right": self.right.to_dict() if self.right else None,
@@ -76,7 +76,7 @@ class Comparison(Expression):
 
     def to_dict(self) -> dict:
         return {
-            "kind": "Comparison",
+            "kind": "Comparison", "line": self.line,
             "operator": self.operator,
             "left": self.left.to_dict() if self.left else None,
             "right": self.right.to_dict() if self.right else None,
@@ -89,7 +89,7 @@ class FunctionCall(Expression):
     arguments: List[Expression] = field(default_factory=list)
 
     def to_dict(self) -> dict:
-        return {"kind": "FunctionCall", "name": self.name, "arguments": [a.to_dict() for a in self.arguments]}
+        return {"kind": "FunctionCall", "line": self.line, "name": self.name, "arguments": [a.to_dict() for a in self.arguments]}
 
 
 @dataclass
@@ -102,7 +102,7 @@ class Block(Node):
     statements: List[Statement] = field(default_factory=list)
 
     def to_dict(self) -> dict:
-        return {"kind": "Block", "statements": [s.to_dict() for s in self.statements]}
+        return {"kind": "Block", "line": self.line, "statements": [s.to_dict() for s in self.statements]}
 
 
 @dataclass
@@ -113,7 +113,7 @@ class VariableDeclaration(Statement):
 
     def to_dict(self) -> dict:
         return {
-            "kind": "VariableDeclaration",
+            "kind": "VariableDeclaration", "line": self.line,
             "name": self.name,
             "type": self.declared_type,
             "value": self.value.to_dict() if self.value else None,
@@ -126,7 +126,7 @@ class Assignment(Statement):
     value: Optional[Expression] = None
 
     def to_dict(self) -> dict:
-        return {"kind": "Assignment", "name": self.name, "value": self.value.to_dict() if self.value else None}
+        return {"kind": "Assignment", "line": self.line, "name": self.name, "value": self.value.to_dict() if self.value else None}
 
 
 @dataclass
@@ -137,7 +137,7 @@ class IfStatement(Statement):
 
     def to_dict(self) -> dict:
         return {
-            "kind": "IfStatement",
+            "kind": "IfStatement", "line": self.line,
             "condition": self.condition.to_dict() if self.condition else None,
             "then": self.then_block.to_dict() if self.then_block else None,
             "else": self.else_block.to_dict() if self.else_block else None,
@@ -149,7 +149,7 @@ class ReturnStatement(Statement):
     value: Optional[Expression] = None
 
     def to_dict(self) -> dict:
-        return {"kind": "ReturnStatement", "value": self.value.to_dict() if self.value else None}
+        return {"kind": "ReturnStatement", "line": self.line, "value": self.value.to_dict() if self.value else None}
 
 
 @dataclass
@@ -157,7 +157,7 @@ class PayStatement(Statement):
     value: Optional[Expression] = None
 
     def to_dict(self) -> dict:
-        return {"kind": "PayStatement", "value": self.value.to_dict() if self.value else None}
+        return {"kind": "PayStatement", "line": self.line, "value": self.value.to_dict() if self.value else None}
 
 
 @dataclass
@@ -170,7 +170,7 @@ class ConstantDeclaration(Node):
 
     def to_dict(self) -> dict:
         return {
-            "kind": "ConstantDeclaration",
+            "kind": "ConstantDeclaration", "line": self.line,
             "name": self.name,
             "type": self.declared_type,
             "value": self.value.to_dict() if self.value else None,
@@ -184,7 +184,7 @@ class Parameter(Node):
     declared_type: str = ""
 
     def to_dict(self) -> dict:
-        return {"kind": "Parameter", "name": self.name, "type": self.declared_type}
+        return {"kind": "Parameter", "line": self.line, "name": self.name, "type": self.declared_type}
 
 
 @dataclass
@@ -196,7 +196,7 @@ class FunctionDeclaration(Node):
 
     def to_dict(self) -> dict:
         return {
-            "kind": "FunctionDeclaration",
+            "kind": "FunctionDeclaration", "line": self.line,
             "name": self.name,
             "parameters": [p.to_dict() for p in self.parameters],
             "returnType": self.return_type,
@@ -209,7 +209,7 @@ class EmployeeBlock(Node):
     body: Optional[Block] = None
 
     def to_dict(self) -> dict:
-        return {"kind": "EmployeeBlock", "body": self.body.to_dict() if self.body else None}
+        return {"kind": "EmployeeBlock", "line": self.line, "body": self.body.to_dict() if self.body else None}
 
 
 @dataclass
@@ -220,7 +220,7 @@ class Program(Node):
 
     def to_dict(self) -> dict:
         return {
-            "kind": "Program",
+            "kind": "Program", "line": self.line,
             "constants": [c.to_dict() for c in self.constants],
             "functions": [f.to_dict() for f in self.functions],
             "employeeBlock": self.employee_block.to_dict() if self.employee_block else None,

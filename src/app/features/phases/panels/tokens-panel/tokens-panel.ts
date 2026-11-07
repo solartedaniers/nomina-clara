@@ -1,8 +1,9 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { TranslatePipe } from '../../../../core/i18n/translate.pipe';
 import { TokenDto } from '../../../../core/models/compile.models';
 import { WorkspaceStore } from '../../../../core/services/workspace.store';
 import { syntaxClass } from '../../../../shared/syntax/syntax';
+import { MoneyDfa } from './money-dfa/money-dfa';
 
 // Leyenda: mismos colores que el resaltado del editor
 const LEGEND = ['keyword', 'type', 'money', 'number', 'string', 'identifier', 'operator', 'punct'];
@@ -10,7 +11,7 @@ const LEGEND = ['keyword', 'type', 'money', 'number', 'string', 'identifier', 'o
 // Panel de la fase 1 · Responsable: Daniers
 @Component({
   selector: 'app-tokens-panel',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, MoneyDfa],
   template: `
     @if (tokens().length) {
       <div class="toolbar">
@@ -26,13 +27,16 @@ const LEGEND = ['keyword', 'type', 'money', 'number', 'string', 'identifier', 'o
           <div class="token-line" [class.selected]="group.line === store.selectedLine()" (click)="store.selectedLine.set(group.line)">
             <span class="line-number">{{ group.line }}</span>
             @for (token of group.tokens; track $index) {
-              <span class="token-chip" [class]="'token-chip ' + classOf(token.type)" [title]="token.line + ':' + token.col">
+              <span class="token-chip" [class]="'token-chip ' + classOf(token.type)" [title]="token.line + ':' + token.col"
+                [class.picked]="token.type === 'MONEY' && token.value === selectedMoney()"
+                (click)="token.type === 'MONEY' && selectedMoney.set(token.value)">
                 <small>{{ token.type }}</small>{{ token.value || '∅' }}
               </span>
             }
           </div>
         }
       </div>
+      <app-money-dfa [value]="selectedMoney()" />
     }
   `,
   styles: `
@@ -80,6 +84,10 @@ const LEGEND = ['keyword', 'type', 'money', 'number', 'string', 'identifier', 'o
     .token-line.selected {
       background: #e8f0fe;
     }
+    .token-chip.picked {
+      outline: 2px solid #15803d;
+      outline-offset: 1px;
+    }
     .line-number {
       width: 26px;
       font: 600 11px var(--mono);
@@ -92,6 +100,8 @@ export class TokensPanel {
   protected readonly store = inject(WorkspaceStore);
   protected readonly legend = LEGEND;
   protected readonly classOf = syntaxClass;
+  // Valor MONEY elegido para resaltar su recorrido en el autómata
+  protected readonly selectedMoney = signal<string | null>(null);
 
   protected readonly groups = computed(() => {
     const groups: { line: number; tokens: TokenDto[] }[] = [];

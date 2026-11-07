@@ -34,7 +34,9 @@ TOKEN_SPECS = [
     ("COMMENT", r"#[^\n]*"),
     ("NEWLINE", r"\n"),
     ("SKIP", r"[ \t\r]+"),
-    (TokenType.MONEY, r"\$[0-9]{1,3}(\.[0-9]{3})*"),
+    # Dinero con puntos de miles ($1.750.905) o sin puntos ($1750905). El lookahead final
+    # impide aceptar solo una parte de algo mal formado como $1.7509.
+    (TokenType.MONEY, r"\$(?:[0-9]{1,3}(?:\.[0-9]{3})+|[0-9]+)(?![0-9.])"),
     (TokenType.DECIMAL, r"[0-9]+\.[0-9]+"),
     (TokenType.INTEGER, r"[0-9]+"),
     (TokenType.STRING, r"\"[^\"\n]*\""),

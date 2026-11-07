@@ -10,6 +10,9 @@
 // El lookahead (?![0-9.]) del regex corresponde a que el valor termine en un estado de aceptación
 // sin poder seguir: por ejemplo $1.7509 llega a q9 con "$1.750" y el "9" no tiene transición.
 
+// Mismo patrón de tokens.py, solo para mostrarlo en la página
+export const MONEY_PATTERN = String.raw`\$(?:[0-9]{1,3}(?:\.[0-9]{3})+|[0-9]+)(?![0-9.])`;
+
 export type MoneyState = 'q0' | 'q1' | 'q2' | 'q3' | 'q4' | 'q5' | 'q6' | 'q7' | 'q8' | 'q9';
 export type MoneySymbol = 'dollar' | 'digit' | 'dot';
 

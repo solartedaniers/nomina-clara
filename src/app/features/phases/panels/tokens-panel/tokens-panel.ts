@@ -12,26 +12,28 @@ const LEGEND = ['keyword', 'type', 'money', 'number', 'string', 'identifier', 'o
   selector: 'app-tokens-panel',
   imports: [TranslatePipe],
   template: `
-    <div class="toolbar">
-      <span class="pill">{{ 'tokens.count' | t: { count: tokens().length } }}</span>
-      <p class="legend">
-        @for (item of legend; track item) {
-          <span [class]="'syn-' + item">{{ 'tokens.legend.' + item | t }}</span>
-        }
-      </p>
-    </div>
-    <div class="token-lines">
-      @for (group of groups(); track group.line) {
-        <div class="token-line" [class.selected]="group.line === store.selectedLine()" (click)="store.selectedLine.set(group.line)">
-          <span class="line-number">{{ group.line }}</span>
-          @for (token of group.tokens; track $index) {
-            <span class="token-chip" [class]="'token-chip ' + classOf(token.type)" [title]="token.line + ':' + token.col">
-              <small>{{ token.type }}</small>{{ token.value || '∅' }}
-            </span>
+    @if (tokens().length) {
+      <div class="toolbar">
+        <span class="pill">{{ 'tokens.count' | t: { count: tokens().length } }}</span>
+        <p class="legend">
+          @for (item of legend; track item) {
+            <span [class]="'syn-' + item">{{ 'tokens.legend.' + item | t }}</span>
           }
-        </div>
-      }
-    </div>
+        </p>
+      </div>
+      <div class="token-lines">
+        @for (group of groups(); track group.line) {
+          <div class="token-line" [class.selected]="group.line === store.selectedLine()" (click)="store.selectedLine.set(group.line)">
+            <span class="line-number">{{ group.line }}</span>
+            @for (token of group.tokens; track $index) {
+              <span class="token-chip" [class]="'token-chip ' + classOf(token.type)" [title]="token.line + ':' + token.col">
+                <small>{{ token.type }}</small>{{ token.value || '∅' }}
+              </span>
+            }
+          </div>
+        }
+      </div>
+    }
   `,
   styles: `
     .toolbar {

@@ -37,9 +37,11 @@ class TacInstruction:
     arg1: Optional[str] = None
     arg2: Optional[str] = None
     res: Optional[str] = None
+    # Línea del programa fuente que generó esta instrucción (opcional)
+    line: Optional[int] = None
 
     def to_dict(self) -> dict:
-        return {"op": self.op, "arg1": self.arg1, "arg2": self.arg2, "res": self.res}
+        return {"op": self.op, "arg1": self.arg1, "arg2": self.arg2, "res": self.res, "line": self.line}
 
     def to_text(self) -> str:
         if self.op == TacOp.LABEL:

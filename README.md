@@ -1,5 +1,7 @@
 # Nómina Clara
 
+Página publicada: https://nomina-clara-gamma.vercel.app
+
 Nómina Clara es nuestro proyecto de la materia Compiladores (Ingeniería de Software, UCC Pasto). Es una página web donde el contador de una empresa pequeña escribe las reglas de nómina en un lenguaje en español, y nuestro compilador las pasa por las 7 fases vistas en clase hasta calcular el valor a pagar de cada empleado.
 
 Equipo: Daniers, Ramírez y Mora.

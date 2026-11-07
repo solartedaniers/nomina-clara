@@ -84,6 +84,32 @@
       "punct": "Puntuación"
     }
   },
+  "moneyDfa": {
+    "title": "Autómata del token MONEY",
+    "hint": "Haz clic en un token MONEY o escribe un valor para ver su recorrido por los estados.",
+    "try": "Probar un valor",
+    "tryPlaceholder": "Ejemplo: $1.7509",
+    "accepted": "Aceptado: termina en {{state}}, que es estado de aceptación.",
+    "stuck": "Rechazado: en {{state}} no hay transición con '{{char}}'.",
+    "notAccepting": "Rechazado: termina en {{state}}, que no es estado de aceptación.",
+    "legend": {
+      "state": "Estado",
+      "accepting": "Estado de aceptación",
+      "path": "Recorrido del valor"
+    },
+    "states": {
+      "q0": "inicio",
+      "q1": "leyó $",
+      "q2": "1 dígito",
+      "q3": "2 dígitos",
+      "q4": "3 dígitos",
+      "q5": "4 o más dígitos sin puntos",
+      "q6": "leyó un punto de miles",
+      "q7": "1 dígito del grupo",
+      "q8": "2 dígitos del grupo",
+      "q9": "grupo de 3 dígitos completo"
+    }
+  },
   "ast": {
     "tree": "Árbol",
     "hint": "Clic en un nodo para abrirlo o cerrarlo",

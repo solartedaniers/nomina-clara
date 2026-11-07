@@ -10,6 +10,9 @@ MASTER_PATTERN = re.compile("|".join(f"(?P<{name}>{pattern})" for name, pattern 
 
 IGNORED = {"COMMENT", "NEWLINE", "SKIP"}
 
+# Solo para el mensaje de error: toma el $ y los dígitos y puntos que lo siguen
+MALFORMED_MONEY = re.compile(r"\$[0-9.]*")
+
 
 class Lexer:
     """Fase 1 · Semana 2 · Responsable: Daniers.
@@ -32,6 +35,10 @@ class Lexer:
 
             if match is None:
                 char = self.source[pos]
+                if char == "$":
+                    # Un $ que no forma MONEY es un valor de dinero mal escrito, como $1.7509
+                    amount = MALFORMED_MONEY.match(self.source, pos).group()
+                    raise LexicalError(f"Valor de dinero mal formado '{amount}' en la línea {line}, columna {col}", line, col)
                 raise LexicalError(f"Carácter no válido '{char}' en la línea {line}, columna {col}", line, col)
 
             kind = match.lastgroup

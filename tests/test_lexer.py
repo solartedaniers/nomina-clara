@@ -63,6 +63,23 @@ class LexerTest(unittest.TestCase):
         ])
 
     @pending_phase
+    def test_money_with_or_without_thousands_separators(self):
+        tokens = Lexer("$1.750.905 $1750905").tokenize()
+        self.assertEqual([(t.type, t.value) for t in tokens[:-1]], [
+            (TokenType.MONEY, "$1.750.905"),
+            (TokenType.MONEY, "$1750905"),
+        ])
+
+    @pending_phase
+    def test_malformed_money_is_a_lexical_error(self):
+        for source in ["$1.7509", "$1750.905", "$1.75", "$12."]:
+            with self.subTest(source=source):
+                with self.assertRaises(LexicalError) as context:
+                    Lexer(f"pagar {source}").tokenize()
+                self.assertEqual((context.exception.line, context.exception.col), (1, 7))
+                self.assertIn(f"'{source}'", context.exception.message)
+
+    @pending_phase
     def test_two_character_operators_before_one_character(self):
         tokens = Lexer("<= >= == != < > =").tokenize()
         self.assertEqual([(t.type, t.value) for t in tokens[:-1]], [

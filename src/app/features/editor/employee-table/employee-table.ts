@@ -1,15 +1,22 @@
 import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '../../../core/i18n/translate.pipe';
+import { Icon } from '../../../shared/icon/icon';
 import { WorkspaceStore } from '../../../core/services/workspace.store';
 
 @Component({
   selector: 'app-employee-table',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, Icon],
   template: `
     <section class="card">
       <header class="card-header">
-        <h2>{{ 'employees.title' | t }}</h2>
-        <button type="button" class="button-secondary" (click)="store.addEmployee()">{{ 'employees.add' | t }}</button>
+        <div class="card-title">
+          <span class="card-icon"><app-icon name="users" /></span>
+          <div>
+            <h2>{{ 'employees.title' | t }}</h2>
+            <p>{{ 'employees.hint' | t }}</p>
+          </div>
+        </div>
+        <button type="button" class="button-secondary" (click)="store.addEmployee()"><app-icon name="plus" [size]="14" />{{ 'employees.add' | t }}</button>
       </header>
       <table class="data-table">
         <thead>

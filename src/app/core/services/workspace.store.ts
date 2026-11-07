@@ -14,17 +14,21 @@ export class WorkspaceStore {
   readonly loading = signal(false);
   readonly requestFailed = signal(false);
   readonly selectedPhase = signal<Exclude<PhaseKey, 'execution'>>('lexer');
+  // Línea del editor elegida para el "viaje de una línea"
+  readonly selectedLine = signal<number | null>(null);
 
   readonly blockingError = computed<CompileError | null>(
     () => this.response()?.errors.find((error) => !error.pending) ?? null,
   );
 
-  readonly pendingPhases = computed(() =>
-    (this.response()?.errors ?? []).filter((error) => error.pending).map((error) => error.phase),
-  );
-
   statusOf(phase: PhaseKey): PhaseStatus | null {
     return this.response()?.status[phase] ?? null;
+  }
+
+  // Error que reportó una fase: el lexer y el parser lo reportan como "lexical" y "syntax"
+  errorFor(phase: PhaseKey): CompileError | null {
+    const names: Partial<Record<PhaseKey, string>> = { lexer: 'lexical', parser: 'syntax', semantic: 'semantic' };
+    return this.response()?.errors.find((error) => !error.pending && (error.phase === phase || error.phase === names[phase])) ?? null;
   }
 
   loadSample(sampleId: string): void {
@@ -32,6 +36,7 @@ export class WorkspaceStore {
     if (sample) {
       this.source.set(sample.source);
       this.response.set(null);
+      this.selectedLine.set(null);
     }
   }
 

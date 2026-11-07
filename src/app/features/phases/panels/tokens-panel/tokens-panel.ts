@@ -1,46 +1,108 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
+import { TranslatePipe } from '../../../../core/i18n/translate.pipe';
 import { TokenDto } from '../../../../core/models/compile.models';
+import { WorkspaceStore } from '../../../../core/services/workspace.store';
+import { syntaxClass } from '../../../../shared/syntax/syntax';
+
+// Leyenda: mismos colores que el resaltado del editor
+const LEGEND = ['keyword', 'type', 'money', 'number', 'string', 'identifier', 'operator', 'punct'];
 
 // Panel de la fase 1 · Responsable: Daniers
 @Component({
   selector: 'app-tokens-panel',
+  imports: [TranslatePipe],
   template: `
-    <div class="token-list">
-      @for (token of tokens(); track $index) {
-        <span class="token" [class]="'token token-' + token.type.toLowerCase()" [title]="token.line + ':' + token.col">
-          <small>{{ token.type }}</small>{{ token.value }}
-        </span>
-      }
-    </div>
+    @if (tokens().length) {
+      <div class="toolbar">
+        <span class="pill">{{ 'tokens.count' | t: { count: tokens().length } }}</span>
+        <p class="legend">
+          @for (item of legend; track item) {
+            <span [class]="'syn-' + item">{{ 'tokens.legend.' + item | t }}</span>
+          }
+        </p>
+      </div>
+      <div class="token-lines">
+        @for (group of groups(); track group.line) {
+          <div class="token-line" [class.selected]="group.line === store.selectedLine()" (click)="store.selectedLine.set(group.line)">
+            <span class="line-number">{{ group.line }}</span>
+            @for (token of group.tokens; track $index) {
+              <span class="token-chip" [class]="'token-chip ' + classOf(token.type)" [title]="token.line + ':' + token.col">
+                <small>{{ token.type }}</small>{{ token.value || '∅' }}
+              </span>
+            }
+          </div>
+        }
+      </div>
+    }
   `,
   styles: `
-    .token-list {
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .legend {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 4px 12px;
+      margin: 0;
+      font-size: 11.5px;
     }
-    .token {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 6px;
-      padding: 4px 8px;
-      border-radius: 6px;
+    .legend span::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 5px;
+      border-radius: 3px;
+      background: currentColor;
+      vertical-align: -1px;
+    }
+    .token-lines {
       border: 1px solid var(--border);
-      background: var(--surface-muted);
-      font-family: var(--mono);
-      font-variant-ligatures: none;
-      font-size: 12px;
+      border-radius: 10px;
+      padding: 4px 8px;
     }
-    .token small {
-      font-size: 10px;
-      color: var(--text-muted);
+    .token-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 4px;
+      border-bottom: 1px dashed var(--border-soft);
+      border-radius: 6px;
+      cursor: pointer;
     }
-    .token-keyword { background: #e8f0fe; border-color: #a8c1f5; }
-    .token-type { background: #f3e8fd; border-color: #cfaef0; }
-    .token-identifier { background: #e7f6ec; border-color: #a6dbb7; }
-    .token-money, .token-decimal, .token-integer { background: #fff4e0; border-color: #f2cf8a; }
+    .token-line:last-child {
+      border-bottom: 0;
+    }
+    .token-line.selected {
+      background: #e8f0fe;
+    }
+    .line-number {
+      width: 26px;
+      font: 600 11px var(--mono);
+      color: #a3aec2;
+    }
   `,
 })
 export class TokensPanel {
   readonly tokens = input<TokenDto[]>([]);
+  protected readonly store = inject(WorkspaceStore);
+  protected readonly legend = LEGEND;
+  protected readonly classOf = syntaxClass;
+
+  protected readonly groups = computed(() => {
+    const groups: { line: number; tokens: TokenDto[] }[] = [];
+    for (const token of this.tokens()) {
+      const last = groups.at(-1);
+      if (last?.line === token.line) {
+        last.tokens.push(token);
+      } else {
+        groups.push({ line: token.line, tokens: [token] });
+      }
+    }
+    return groups;
+  });
 }

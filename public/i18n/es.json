@@ -1,11 +1,11 @@
 {
   "app": {
     "title": "Nómina Clara",
-    "subtitle": "Compilador de reglas de nómina · Compiladores UCC Pasto",
+    "course": "Compiladores · UCC Pasto",
+    "subtitle": "Compilador de reglas de nómina para pequeñas empresas de Pasto",
     "compile": "Compilar y liquidar",
     "compiling": "Compilando…",
-    "requestFailed": "No se pudo contactar la API del compilador. Si estás en local, revisa que dev_server.py esté corriendo.",
-    "pendingPhases": "Fases todavía sin implementar: {{phases}}"
+    "requestFailed": "No se pudo contactar la API del compilador. Si estás en local, revisa que dev_server.py esté corriendo."
   },
   "samples": {
     "label": "Programas de ejemplo",
@@ -18,10 +18,14 @@
   "editor": {
     "title": "Editor de reglas",
     "hint": "Lenguaje Nómina Clara",
-    "line": "línea {{line}}"
+    "line": "línea {{line}}",
+    "lines": "{{count}} líneas",
+    "position": "línea {{line}}, columna {{col}}",
+    "selectHint": "Haz clic en una línea (o en su número) para ver su viaje por las 7 fases."
   },
   "employees": {
     "title": "Empleados",
+    "hint": "Datos que recibe «para cada empleado»",
     "add": "Agregar empleado",
     "remove": "Quitar empleado",
     "name": "Nombre",
@@ -44,20 +48,87 @@
   "phases": {
     "bar": "Fases del compilador",
     "prefix": "Fase {{number}}",
-    "legend": "Verde: pasó · Rojo: falló aquí · Amarillo: pendiente de implementar · Gris: no se alcanzó",
+    "legend": { "passed": "Pasó", "failed": "Falló aquí", "pending": "Pendiente de implementar", "skipped": "No se alcanzó" },
     "lexer": { "label": "Lexer", "title": "Análisis léxico (tokens)", "week": "Semana 2" },
     "parser": { "label": "Parser", "title": "Análisis sintáctico (AST)", "week": "Semanas 3 y 4" },
-    "semantic": { "label": "Tabla", "title": "Tabla de símbolos y tipos", "week": "Semanas 5 y 6" },
+    "semantic": { "label": "Tabla y tipos", "title": "Tabla de símbolos y tipos", "week": "Semanas 5 y 6" },
     "ir": { "label": "TAC", "title": "Código intermedio (TAC)", "week": "Semana 7" },
     "memory": { "label": "Memoria", "title": "Gestión de memoria", "week": "Semana 8" },
-    "optimizer": { "label": "Optim.", "title": "Optimización del TAC", "week": "Semana 9" },
-    "codegen": { "label": "ASM", "title": "Código objetivo y registros", "week": "Semana 10" },
+    "optimizer": { "label": "Optimización", "title": "Optimización del TAC", "week": "Semana 9" },
+    "codegen": { "label": "Código objetivo", "title": "Código objetivo y registros", "week": "Semana 10" },
     "execution": { "label": "Ejecución" }
   },
+  "status": {
+    "passed": "Pasó",
+    "failed": "Falló",
+    "failedAt": "Falló · línea {{line}}",
+    "pending": "Pendiente",
+    "skipped": "No alcanzada",
+    "idle": "Sin compilar"
+  },
   "panel": {
-    "idle": "Presiona \"Compilar y liquidar\" para ver esta fase.",
-    "pending": "Esta fase todavía no está implementada en el compilador.",
-    "skipped": "El programa no llegó a esta fase porque una fase anterior falló o está pendiente."
+    "idle": { "title": "Todavía no has compilado", "text": "Presiona «Compilar y liquidar» para ver el resultado de esta fase." },
+    "pending": { "title": "Fase pendiente de implementar", "text": "Esta fase todavía no está implementada en el compilador ({{week}})." },
+    "skipped": { "title": "El programa no llegó a esta fase", "text": "Una fase anterior falló o está pendiente, así que esta no se ejecutó." }
+  },
+  "tokens": {
+    "count": "{{count}} tokens",
+    "legend": {
+      "keyword": "Palabra clave",
+      "type": "Tipo",
+      "money": "Dinero",
+      "number": "Número",
+      "string": "Texto",
+      "identifier": "Identificador",
+      "operator": "Operador",
+      "punct": "Puntuación"
+    }
+  },
+  "ast": {
+    "tree": "Árbol",
+    "hint": "Clic en un nodo para abrirlo o cerrarlo",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "more": "+ {{count}} nodos",
+    "moreOne": "+ 1 nodo",
+    "roles": { "condition": "condición", "then": "entonces", "else": "sino" },
+    "kinds": {
+      "Program": "Programa",
+      "ConstantDeclaration": "Constante",
+      "FunctionDeclaration": "Función",
+      "Parameter": "Parámetro",
+      "EmployeeBlock": "Bloque por empleado",
+      "Block": "Bloque",
+      "VariableDeclaration": "Declaración",
+      "Assignment": "Asignación",
+      "IfStatement": "Condicional",
+      "ReturnStatement": "Retorno",
+      "PayStatement": "Pago",
+      "BinaryOperation": "Operación binaria",
+      "Comparison": "Comparación",
+      "FunctionCall": "Llamada a función",
+      "NumberLiteral": { "entero": "Número entero", "decimal": "Número decimal" },
+      "MoneyLiteral": "Dinero",
+      "StringLiteral": "Texto",
+      "Identifier": "Identificador"
+    }
+  },
+  "journey": {
+    "title": "Viaje de la línea {{line}}",
+    "titleEmpty": "Viaje de una línea",
+    "subtitle": "Entrada, proceso y salida de esa instrucción en cada fase",
+    "empty": { "title": "Elige una línea del editor", "text": "Haz clic en una línea del programa para seguirla por las 7 fases del compilador." },
+    "input": "Entrada",
+    "process": "Proceso",
+    "output": "Salida",
+    "summaryTag": "resumen de la fase",
+    "lexer": { "input": "Texto de la línea {{line}}", "process": "Regex de TOKEN_SPECS, de izquierda a derecha", "none": "Sin tokens: línea vacía o comentario" },
+    "parser": { "input": "{{count}} tokens", "process": "Reglas EBNF: sentencia → expr → term → factor", "none": "Esta línea no crea nodos propios (llave o comentario)" },
+    "semantic": { "input": "Nodos del AST", "process": "Declara símbolos y verifica tipos", "summary": "{{count}} símbolos en la tabla" },
+    "ir": { "input": "AST verificado", "process": "Genera código de tres direcciones", "summary": "{{count}} instrucciones TAC", "none": "Esta línea no genera instrucciones" },
+    "memory": { "input": "Variables y llamadas", "process": "Ubica datos en Data, Stack y Heap", "summary": "Data: {{data}} · Stack: {{stack}} frames · Heap: {{heap}}" },
+    "optimizer": { "input": "TAC sin optimizar", "process": "Plegado de constantes y limpieza", "summary": "{{before}} → {{after}} instrucciones" },
+    "codegen": { "input": "TAC optimizado", "process": "Traduce a ensamblador con R0, R1 y R2", "summary": "{{count}} líneas · {{spills}} spill(s)" }
   },
   "symbols": {
     "name": "Identificador",
@@ -86,6 +157,6 @@
     "total": "Total nómina",
     "employee": "Empleado",
     "pay": "Neto a pagar",
-    "empty": "Aparece cuando el programa pasa todas las fases."
+    "empty": "Todavía no hay nómina para mostrar: aparece cuando el programa pasa las 7 fases."
   }
 }

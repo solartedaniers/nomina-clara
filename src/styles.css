@@ -1,18 +1,29 @@
 :root {
+  /* Marca: azul oscuro con acento dorado */
+  --brand-900: #0b1f3a;
   --brand: #1f3a68;
   --brand-hover: #2a4c86;
-  --text: #1c2430;
-  --text-muted: #667085;
+  --brand-soft: #eaf0fa;
+  --accent: #f2b630;
+  --accent-hover: #f6c452;
+
+  --text: #16202e;
+  --text-muted: #64748b;
   --surface: #ffffff;
-  --surface-muted: #f4f6f9;
-  --background: #eef1f5;
-  --border: #d9dee6;
-  --success: #2f9e5b;
-  --success-soft: #e6f6ec;
-  --danger: #d23b3b;
-  --danger-soft: #fdecec;
-  --warning: #d58a12;
-  --warning-soft: #fff4dd;
+  --surface-muted: #f6f8fb;
+  --background: #eef2f7;
+  --border: #e2e8f0;
+  --border-soft: #edf1f6;
+
+  --success: #16a34a;
+  --success-soft: #ecfdf3;
+  --danger: #dc2626;
+  --danger-soft: #fff5f5;
+  --warning: #d97706;
+  --warning-soft: #fffbeb;
+
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 4px 16px rgba(15, 23, 42, 0.06);
+  --radius: 14px;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
   color-scheme: light;
 }
@@ -25,14 +36,17 @@ body {
   margin: 0;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
+  line-height: 1.45;
   color: var(--text);
   background: var(--background);
 }
 
+/* ---------- Tarjetas ---------- */
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   padding: 16px;
 }
 
@@ -47,6 +61,31 @@ body {
 .card-header h2 {
   margin: 0;
   font-size: 15px;
+  font-weight: 700;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.card-title p {
+  margin: 1px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.card-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--brand-soft);
+  color: var(--brand);
 }
 
 .hint {
@@ -54,9 +93,24 @@ body {
   color: var(--text-muted);
 }
 
+.pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ---------- Botones ---------- */
 .button-primary,
 .button-secondary {
-  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9px;
   padding: 8px 14px;
   font: inherit;
   font-weight: 600;
@@ -74,7 +128,7 @@ body {
 }
 
 .button-primary:disabled {
-  opacity: 0.6;
+  opacity: 0.7;
   cursor: progress;
 }
 
@@ -84,30 +138,64 @@ body {
   color: var(--text);
 }
 
+.button-secondary:hover {
+  background: var(--surface-muted);
+}
+
 .icon-button {
   border: none;
   background: transparent;
   color: var(--text-muted);
   font-size: 18px;
   cursor: pointer;
+  border-radius: 6px;
 }
 
+.icon-button:hover {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-hover);
+  outline-offset: 2px;
+}
+
+/* ---------- Tablas (también las de los paneles de cada fase) ---------- */
 .data-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
 }
 
 .data-table th,
 .data-table td {
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--border);
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border-soft);
   text-align: left;
 }
 
 .data-table th {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--text-muted);
+  background: var(--surface-muted);
+  border-bottom-color: var(--border);
+}
+
+.data-table th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.data-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.data-table tbody tr:hover td {
+  background: #f8fafc;
 }
 
 .mono {
@@ -115,13 +203,14 @@ body {
   font-variant-ligatures: none;
 }
 
+/* ---------- Bloques de código (JSON, TAC, ensamblador) ---------- */
 .code-block,
 .code-list {
   margin: 0;
   padding: 10px 12px;
   background: var(--surface-muted);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   font-family: var(--mono);
   font-variant-ligatures: none;
   font-size: 12px;
@@ -131,25 +220,417 @@ body {
 }
 
 .code-list {
-  padding-left: 40px;
+  padding-left: 44px;
 }
 
+.code-list li::marker {
+  color: #a3aec2;
+  font-size: 11px;
+}
+
+.code-list li:hover {
+  background: var(--brand-soft);
+}
+
+app-phase-panel h3 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- Avisos ---------- */
 .error-box,
 .warning-box {
   margin: 12px 0 0;
   padding: 10px 12px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 13px;
 }
 
 .error-box {
   background: var(--danger-soft);
-  border: 1px solid var(--danger);
-  color: var(--danger);
+  border: 1px solid #fecaca;
+  color: #991b1b;
 }
 
 .warning-box {
   background: var(--warning-soft);
-  border: 1px solid var(--warning);
-  color: #8a5a0b;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+/* ---------- Colores de las 7 fases (diapositiva del profesor) ---------- */
+.phase-lexer {
+  --phase-color: #3b82f6;
+}
+
+.phase-parser {
+  --phase-color: #1e40af;
+}
+
+.phase-semantic {
+  --phase-color: #0ea5a4;
+}
+
+.phase-ir {
+  --phase-color: #16a34a;
+}
+
+.phase-memory {
+  --phase-color: #eab308;
+  --phase-ink: #3b2f00;
+}
+
+.phase-optimizer {
+  --phase-color: #f97316;
+}
+
+.phase-codegen {
+  --phase-color: #dc2626;
+}
+
+/* Número de la fase sobre su color */
+.phase-number {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--phase-color);
+  color: var(--phase-ink, #fff);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* ---------- Colores de sintaxis (editor, tokens y viaje de una línea) ---------- */
+.syn-keyword {
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.syn-type {
+  color: #0e7490;
+  font-weight: 600;
+}
+
+.syn-money {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.syn-number {
+  color: #c2410c;
+}
+
+.syn-string {
+  color: #a16207;
+}
+
+.syn-identifier {
+  color: #1e293b;
+}
+
+.syn-operator {
+  color: #db2777;
+  font-weight: 600;
+}
+
+.syn-comment {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.syn-punct {
+  color: #64748b;
+}
+
+.syn-invalid {
+  color: var(--danger);
+  text-decoration: wavy underline;
+}
+
+/* ---------- Estados vacíos ---------- */
+.empty-state {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 18px;
+  border: 1.5px dashed #d5dde8;
+  border-radius: 12px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+}
+
+.empty-state .empty-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--brand);
+}
+
+.empty-state.pending .empty-icon {
+  color: var(--warning);
+}
+
+.empty-state strong {
+  display: block;
+  color: var(--text);
+}
+
+/* La tabla de nómina (de Ramírez) usa .empty: le doy el mismo aspecto desde aquí */
+app-payroll-table .empty {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 18px;
+  border: 1.5px dashed #d5dde8;
+  border-radius: 12px;
+  background: var(--surface-muted);
+}
+
+app-payroll-table .empty::before {
+  content: '';
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%231f3a68' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 2h12v20l-3-2-3 2-3-2-3 2z M9 7h6 M9 11h6 M9 15h3'/%3E%3C/svg%3E") center no-repeat;
+}
+
+/* ---------- Indicador de carga ---------- */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ficha de un token (panel de tokens y viaje de una línea): toma el color de su tipo */
+.token-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 7px;
+  border: 1px solid color-mix(in srgb, currentColor 28%, white);
+  background: color-mix(in srgb, currentColor 8%, white);
+  font: 12px var(--mono);
+  font-variant-ligatures: none;
+}
+
+.token-chip small {
+  font: 700 9px 'Inter', sans-serif;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+/* ---------- Árbol del AST (panel de la fase 2) ---------- */
+app-ast-panel .tree,
+app-ast-panel .tree ul {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+app-ast-panel .tree {
+  width: max-content;
+  min-width: 100%;
+}
+
+app-ast-panel .tree ul {
+  position: relative;
+  padding-top: 14px;
+}
+
+app-ast-panel .tree li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 5px 0;
+}
+
+/* Líneas que unen cada nodo con su padre */
+app-ast-panel .tree li::before,
+app-ast-panel .tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 50%;
+  height: 14px;
+  border-top: 2px solid #b8c4d6;
+}
+
+app-ast-panel .tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #b8c4d6;
+}
+
+app-ast-panel .tree li:only-child::before {
+  display: none;
+}
+
+app-ast-panel .tree li:only-child::after {
+  border-top: 0;
+}
+
+app-ast-panel .tree li:first-child::before,
+app-ast-panel .tree li:last-child::after {
+  border: 0;
+}
+
+app-ast-panel .tree li:last-child::before {
+  border-right: 2px solid #b8c4d6;
+  border-radius: 0 6px 0 0;
+}
+
+app-ast-panel .tree li:first-child::after {
+  border-radius: 6px 0 0 0;
+}
+
+app-ast-panel .tree ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 14px;
+  border-left: 2px solid #b8c4d6;
+}
+
+app-ast-panel .tree > li {
+  padding-top: 0;
+}
+
+app-ast-panel .tree > li::before,
+app-ast-panel .tree > li::after {
+  display: none;
+}
+
+app-ast-panel .role {
+  margin-bottom: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+app-ast-panel .node {
+  --node-color: #475569;
+  position: relative;
+  min-width: 90px;
+  padding: 5px 10px 6px;
+  border: 1.5px solid var(--node-color);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  font: inherit;
+  color: var(--text);
+  text-align: center;
+  cursor: pointer;
+}
+
+app-ast-panel .node small {
+  display: block;
+  padding-right: 18px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--node-color);
+}
+
+app-ast-panel .node b {
+  display: block;
+  font: 600 12.5px var(--mono);
+  font-variant-ligatures: none;
+  white-space: nowrap;
+}
+
+app-ast-panel .node .evaluated {
+  display: block;
+  margin-top: 4px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--success-soft);
+  color: #15803d;
+  font: 600 10.5px var(--mono);
+}
+
+app-ast-panel .node .line-badge {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  padding: 0 4px;
+  border-radius: 5px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+app-ast-panel .node.closed {
+  box-shadow: 3px 3px 0 -1px var(--surface), 3px 3px 0 0 var(--node-color);
+}
+
+app-ast-panel .node.more {
+  min-width: 0;
+  border-style: dashed;
+  color: var(--text-muted);
+  font: 600 11.5px var(--mono);
+}
+
+app-ast-panel .node.on-line {
+  background: #eef4ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+app-ast-panel .group-program {
+  --node-color: var(--brand-900);
+}
+
+app-ast-panel .group-program small {
+  padding-right: 0;
+}
+
+app-ast-panel .group-statement {
+  --node-color: #1e40af;
+}
+
+app-ast-panel .group-operator {
+  --node-color: #db2777;
+}
+
+app-ast-panel .group-literal {
+  --node-color: #c2410c;
+}
+
+app-ast-panel .group-money {
+  --node-color: #15803d;
+}
+
+app-ast-panel .group-function {
+  --node-color: #7c3aed;
 }

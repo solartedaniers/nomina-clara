@@ -96,7 +96,7 @@ class Parser:
         found = f"'{token.value}'" if token and token.value else "el fin del programa"
         line = token.line if token else 0
         col = token.col if token else 0
-        return ParserError(f"{message} pero se encontró {found} en la línea {line}, columna {col}", line, col)
+        return ParserError(f"{message} pero se encontró {found}", line, col)
 
     def parse(self) -> Program:
         start = self.current()

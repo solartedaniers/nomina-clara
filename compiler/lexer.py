@@ -38,8 +38,8 @@ class Lexer:
                 if char == "$":
                     # Un $ que no forma MONEY es un valor de dinero mal escrito, como $1.7509
                     amount = MALFORMED_MONEY.match(self.source, pos).group()
-                    raise LexicalError(f"Valor de dinero mal formado '{amount}' en la línea {line}, columna {col}", line, col)
-                raise LexicalError(f"Carácter no válido '{char}' en la línea {line}, columna {col}", line, col)
+                    raise LexicalError(f"Valor de dinero mal formado '{amount}'", line, col)
+                raise LexicalError(f"Carácter no válido '{char}'", line, col)
 
             kind = match.lastgroup
             value = match.group()

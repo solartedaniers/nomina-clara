@@ -84,6 +84,35 @@
       "punct": "Puntuación"
     }
   },
+  "ast": {
+    "tree": "Árbol",
+    "hint": "Clic en un nodo para abrirlo o cerrarlo",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "more": "+ {{count}} nodos",
+    "moreOne": "+ 1 nodo",
+    "roles": { "condition": "condición", "then": "entonces", "else": "sino" },
+    "kinds": {
+      "Program": "Programa",
+      "ConstantDeclaration": "Constante",
+      "FunctionDeclaration": "Función",
+      "Parameter": "Parámetro",
+      "EmployeeBlock": "Bloque por empleado",
+      "Block": "Bloque",
+      "VariableDeclaration": "Declaración",
+      "Assignment": "Asignación",
+      "IfStatement": "Condicional",
+      "ReturnStatement": "Retorno",
+      "PayStatement": "Pago",
+      "BinaryOperation": "Operación binaria",
+      "Comparison": "Comparación",
+      "FunctionCall": "Llamada a función",
+      "NumberLiteral": { "entero": "Número entero", "decimal": "Número decimal" },
+      "MoneyLiteral": "Dinero",
+      "StringLiteral": "Texto",
+      "Identifier": "Identificador"
+    }
+  },
   "symbols": {
     "name": "Identificador",
     "type": "Tipo",

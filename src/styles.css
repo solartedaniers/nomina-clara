@@ -442,3 +442,195 @@ app-payroll-table .empty::before {
   letter-spacing: 0.04em;
   opacity: 0.8;
 }
+
+/* ---------- Árbol del AST (panel de la fase 2) ---------- */
+app-ast-panel .tree,
+app-ast-panel .tree ul {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+app-ast-panel .tree {
+  width: max-content;
+  min-width: 100%;
+}
+
+app-ast-panel .tree ul {
+  position: relative;
+  padding-top: 14px;
+}
+
+app-ast-panel .tree li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 5px 0;
+}
+
+/* Líneas que unen cada nodo con su padre */
+app-ast-panel .tree li::before,
+app-ast-panel .tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 50%;
+  height: 14px;
+  border-top: 2px solid #b8c4d6;
+}
+
+app-ast-panel .tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #b8c4d6;
+}
+
+app-ast-panel .tree li:only-child::before {
+  display: none;
+}
+
+app-ast-panel .tree li:only-child::after {
+  border-top: 0;
+}
+
+app-ast-panel .tree li:first-child::before,
+app-ast-panel .tree li:last-child::after {
+  border: 0;
+}
+
+app-ast-panel .tree li:last-child::before {
+  border-right: 2px solid #b8c4d6;
+  border-radius: 0 6px 0 0;
+}
+
+app-ast-panel .tree li:first-child::after {
+  border-radius: 6px 0 0 0;
+}
+
+app-ast-panel .tree ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 14px;
+  border-left: 2px solid #b8c4d6;
+}
+
+app-ast-panel .tree > li {
+  padding-top: 0;
+}
+
+app-ast-panel .tree > li::before,
+app-ast-panel .tree > li::after {
+  display: none;
+}
+
+app-ast-panel .role {
+  margin-bottom: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+app-ast-panel .node {
+  --node-color: #475569;
+  position: relative;
+  min-width: 90px;
+  padding: 5px 10px 6px;
+  border: 1.5px solid var(--node-color);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  font: inherit;
+  color: var(--text);
+  text-align: center;
+  cursor: pointer;
+}
+
+app-ast-panel .node small {
+  display: block;
+  padding-right: 18px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--node-color);
+}
+
+app-ast-panel .node b {
+  display: block;
+  font: 600 12.5px var(--mono);
+  font-variant-ligatures: none;
+  white-space: nowrap;
+}
+
+app-ast-panel .node .evaluated {
+  display: block;
+  margin-top: 4px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--success-soft);
+  color: #15803d;
+  font: 600 10.5px var(--mono);
+}
+
+app-ast-panel .node .line-badge {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  padding: 0 4px;
+  border-radius: 5px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-size: 9.5px;
+  font-weight: 600;
+}
+
+app-ast-panel .node.closed {
+  box-shadow: 3px 3px 0 -1px var(--surface), 3px 3px 0 0 var(--node-color);
+}
+
+app-ast-panel .node.more {
+  min-width: 0;
+  border-style: dashed;
+  color: var(--text-muted);
+  font: 600 11.5px var(--mono);
+}
+
+app-ast-panel .node.on-line {
+  background: #eef4ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+app-ast-panel .group-program {
+  --node-color: var(--brand-900);
+}
+
+app-ast-panel .group-program small {
+  padding-right: 0;
+}
+
+app-ast-panel .group-statement {
+  --node-color: #1e40af;
+}
+
+app-ast-panel .group-operator {
+  --node-color: #db2777;
+}
+
+app-ast-panel .group-literal {
+  --node-color: #c2410c;
+}
+
+app-ast-panel .group-money {
+  --node-color: #15803d;
+}
+
+app-ast-panel .group-function {
+  --node-color: #7c3aed;
+}

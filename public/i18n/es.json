@@ -71,6 +71,19 @@
     "pending": { "title": "Fase pendiente de implementar", "text": "Esta fase todavía no está implementada en el compilador ({{week}})." },
     "skipped": { "title": "El programa no llegó a esta fase", "text": "Una fase anterior falló o está pendiente, así que esta no se ejecutó." }
   },
+  "tokens": {
+    "count": "{{count}} tokens",
+    "legend": {
+      "keyword": "Palabra clave",
+      "type": "Tipo",
+      "money": "Dinero",
+      "number": "Número",
+      "string": "Texto",
+      "identifier": "Identificador",
+      "operator": "Operador",
+      "punct": "Puntuación"
+    }
+  },
   "symbols": {
     "name": "Identificador",
     "type": "Tipo",

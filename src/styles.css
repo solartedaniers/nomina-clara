@@ -423,3 +423,22 @@ app-payroll-table .empty::before {
     transform: rotate(360deg);
   }
 }
+
+/* Ficha de un token (panel de tokens y viaje de una línea): toma el color de su tipo */
+.token-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 3px 8px;
+  border-radius: 7px;
+  border: 1px solid color-mix(in srgb, currentColor 28%, white);
+  background: color-mix(in srgb, currentColor 8%, white);
+  font: 12px var(--mono);
+  font-variant-ligatures: none;
+}
+
+.token-chip small {
+  font: 700 9px 'Inter', sans-serif;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}

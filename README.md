@@ -38,6 +38,8 @@ python -m unittest discover -s tests -t .
 
 Las pruebas de una fase pendiente salen como `skipped`. A medida que implementamos cada fase, sus pruebas empiezan a correr de verdad. Las pruebas usan los programas de `examples/`.
 
+Ojo: si el resultado dice `OK (skipped=N)`, eso no significa que la fase esté lista, solo que sus pruebas se saltaron porque sigue pendiente. Una fase está lista cuando sus pruebas corren y pasan sin salir como `skipped`.
+
 ## Estructura y responsables
 
 | Archivo | Fase | Semana | Responsable |

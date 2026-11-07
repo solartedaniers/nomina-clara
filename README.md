@@ -1,8 +1,19 @@
 # Nómina Clara
 
+Página publicada: https://nomina-clara-gamma.vercel.app
+
 Nómina Clara es nuestro proyecto de la materia Compiladores (Ingeniería de Software, UCC Pasto). Es una página web donde el contador de una empresa pequeña escribe las reglas de nómina en un lenguaje en español, y nuestro compilador las pasa por las 7 fases vistas en clase hasta calcular el valor a pagar de cada empleado.
 
 Equipo: Daniers, Ramírez y Mora.
+
+## Qué muestra la página
+
+- **Las 7 fases con su color**: 1. Lexer (azul), 2. Parser (azul oscuro), 3. Tabla y tipos (verde azulado), 4. TAC (verde), 5. Memoria (amarillo), 6. Optimización (naranja) y 7. Código objetivo (rojo). Cada fase marca si pasó, falló, está pendiente o no se alcanzó.
+- **El editor de reglas con resaltado**: palabras clave, tipos, valores de dinero, números, textos, identificadores y operadores con los mismos colores que la lista de tokens.
+- **El árbol del AST**: se abre y se cierra por nodos, y muestra la línea de cada nodo.
+- **El autómata del token MONEY**: dibujo los estados, las transiciones y los estados de aceptación. Al hacer clic en un token MONEY se resalta su recorrido, y en «Probar un valor» puedo escribir cualquier cadena (por ejemplo `$1.7509`) para ver dónde se acepta o en qué estado y con qué carácter se detiene.
+- **El viaje de una línea**: al hacer clic en una línea del editor veo su entrada, proceso y salida en cada una de las 7 fases.
+- **La nómina**: el valor a pagar de cada empleado de la tabla.
 
 ## Qué hay en este repositorio
 

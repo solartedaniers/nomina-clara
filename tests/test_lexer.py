@@ -35,14 +35,12 @@ class LexerTest(unittest.TestCase):
         self.assertEqual(context.exception.line, 5)
 
     @pending_phase
-    def test_error_message_has_character_line_and_column(self):
+    def test_error_has_character_in_message_and_position_in_fields(self):
         with self.assertRaises(LexicalError) as context:
             Lexer(read_example("lexical_error.nc")).tokenize()
         error = context.exception
+        self.assertEqual(error.message, "Carácter no válido '@'")
         self.assertEqual((error.line, error.col), (5, 29))
-        self.assertIn("'@'", error.message)
-        self.assertIn("línea 5", error.message)
-        self.assertIn("columna 29", error.message)
 
     @pending_phase
     def test_ignores_comments(self):

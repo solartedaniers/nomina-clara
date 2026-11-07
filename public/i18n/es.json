@@ -1,0 +1,91 @@
+{
+  "app": {
+    "title": "Nómina Clara",
+    "subtitle": "Compilador de reglas de nómina · Compiladores UCC Pasto",
+    "compile": "Compilar y liquidar",
+    "compiling": "Compilando…",
+    "requestFailed": "No se pudo contactar la API del compilador. Si estás en local, revisa que dev_server.py esté corriendo.",
+    "pendingPhases": "Fases todavía sin implementar: {{phases}}"
+  },
+  "samples": {
+    "label": "Programas de ejemplo",
+    "bakery": "Ejemplo: Panadería (válido)",
+    "lexical": "Ejemplo: error léxico",
+    "syntax": "Ejemplo: error sintáctico",
+    "semantic": "Ejemplo: error de tipos",
+    "spill": "Ejemplo: caso con spill"
+  },
+  "editor": {
+    "title": "Editor de reglas",
+    "hint": "Lenguaje Nómina Clara",
+    "line": "línea {{line}}"
+  },
+  "employees": {
+    "title": "Empleados",
+    "add": "Agregar empleado",
+    "remove": "Quitar empleado",
+    "name": "Nombre",
+    "salary": "Salario",
+    "overtime": "Horas extra"
+  },
+  "errors": {
+    "lexical": "Error léxico",
+    "syntax": "Error sintáctico",
+    "semantic": "Error semántico",
+    "runtime": "Error de ejecución",
+    "lexer": "Error interno en el lexer",
+    "parser": "Error interno en el parser",
+    "ir": "Error interno en el TAC",
+    "memory": "Error interno en memoria",
+    "optimizer": "Error interno en el optimizador",
+    "codegen": "Error interno en el código objetivo",
+    "execution": "Error interno en la ejecución"
+  },
+  "phases": {
+    "bar": "Fases del compilador",
+    "prefix": "Fase {{number}}",
+    "legend": "Verde: pasó · Rojo: falló aquí · Amarillo: pendiente de implementar · Gris: no se alcanzó",
+    "lexer": { "label": "Lexer", "title": "Análisis léxico (tokens)", "week": "Semana 2" },
+    "parser": { "label": "Parser", "title": "Análisis sintáctico (AST)", "week": "Semanas 3 y 4" },
+    "semantic": { "label": "Tabla", "title": "Tabla de símbolos y tipos", "week": "Semanas 5 y 6" },
+    "ir": { "label": "TAC", "title": "Código intermedio (TAC)", "week": "Semana 7" },
+    "memory": { "label": "Memoria", "title": "Gestión de memoria", "week": "Semana 8" },
+    "optimizer": { "label": "Optim.", "title": "Optimización del TAC", "week": "Semana 9" },
+    "codegen": { "label": "ASM", "title": "Código objetivo y registros", "week": "Semana 10" },
+    "execution": { "label": "Ejecución" }
+  },
+  "panel": {
+    "idle": "Presiona \"Compilar y liquidar\" para ver esta fase.",
+    "pending": "Esta fase todavía no está implementada en el compilador.",
+    "skipped": "El programa no llegó a esta fase porque una fase anterior falló o está pendiente."
+  },
+  "symbols": {
+    "name": "Identificador",
+    "type": "Tipo",
+    "scope": "Ámbito",
+    "address": "Dirección",
+    "kind": "Clase"
+  },
+  "memory": {
+    "data": "Segmento Data",
+    "stack": "Stack (frames)",
+    "heap": "Heap",
+    "events": "Eventos"
+  },
+  "optimizer": {
+    "before": "Antes ({{count}} instrucciones)",
+    "after": "Después ({{count}} instrucciones)",
+    "steps": "Cambios aplicados"
+  },
+  "assembly": {
+    "spills": "{{count}} spill(s) a la RAM: los registros R0, R1 y R2 se llenaron",
+    "unsupported": "Instrucciones TAC aún sin traducir"
+  },
+  "payroll": {
+    "title": "Resultado de nómina",
+    "total": "Total nómina",
+    "employee": "Empleado",
+    "pay": "Neto a pagar",
+    "empty": "Aparece cuando el programa pasa todas las fases."
+  }
+}

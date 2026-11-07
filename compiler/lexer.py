@@ -1,6 +1,14 @@
+import re
 from typing import List
 
-from .tokens import Token
+from .errors import LexicalError
+from .tokens import DATA_TYPES, KEYWORDS, TOKEN_SPECS, Token, TokenType
+
+# Un solo regex con un grupo con nombre por patrón. Python prueba las alternativas en
+# orden, así que se respeta la prioridad de TOKEN_SPECS (MONEY antes que DECIMAL, <= antes que <).
+MASTER_PATTERN = re.compile("|".join(f"(?P<{name}>{pattern})" for name, pattern in TOKEN_SPECS))
+
+IGNORED = {"COMMENT", "NEWLINE", "SKIP"}
 
 
 class Lexer:
@@ -13,12 +21,33 @@ class Lexer:
         self.source = source
 
     def tokenize(self) -> List[Token]:
-        # TODO (Daniers):
-        # 1. Compilar los patrones de TOKEN_SPECS y recorrer el texto de izquierda a derecha,
-        #    igual que tokenize() del taller de la semana 3.
-        # 2. Llevar la cuenta de línea y columna (NEWLINE suma una línea y reinicia la columna).
-        # 3. Descartar COMMENT, NEWLINE y SKIP.
-        # 4. Reclasificar IDENTIFIER como KEYWORD si está en KEYWORDS, o como TYPE si está en DATA_TYPES.
-        # 5. Si ningún patrón coincide, lanzar LexicalError("Carácter no válido '@'", line, col).
-        # 6. Terminar la lista con un Token(TokenType.EOF, "", line, col).
-        raise NotImplementedError("Lexer pendiente")
+        tokens: List[Token] = []
+        pos = 0
+        line = 1
+        line_start = 0  # posición donde empieza la línea actual, para calcular la columna
+
+        while pos < len(self.source):
+            match = MASTER_PATTERN.match(self.source, pos)
+            col = pos - line_start + 1
+
+            if match is None:
+                char = self.source[pos]
+                raise LexicalError(f"Carácter no válido '{char}' en la línea {line}, columna {col}", line, col)
+
+            kind = match.lastgroup
+            value = match.group()
+
+            if kind == "NEWLINE":
+                line += 1
+                line_start = match.end()
+            elif kind not in IGNORED:
+                if kind == TokenType.IDENTIFIER and value in KEYWORDS:
+                    kind = TokenType.KEYWORD
+                elif kind == TokenType.IDENTIFIER and value in DATA_TYPES:
+                    kind = TokenType.TYPE
+                tokens.append(Token(kind, value, line, col))
+
+            pos = match.end()
+
+        tokens.append(Token(TokenType.EOF, "", line, pos - line_start + 1))
+        return tokens

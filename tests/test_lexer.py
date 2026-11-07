@@ -34,6 +34,47 @@ class LexerTest(unittest.TestCase):
             Lexer(read_example("lexical_error.nc")).tokenize()
         self.assertEqual(context.exception.line, 5)
 
+    @pending_phase
+    def test_error_message_has_character_line_and_column(self):
+        with self.assertRaises(LexicalError) as context:
+            Lexer(read_example("lexical_error.nc")).tokenize()
+        error = context.exception
+        self.assertEqual((error.line, error.col), (5, 29))
+        self.assertIn("'@'", error.message)
+        self.assertIn("línea 5", error.message)
+        self.assertIn("columna 29", error.message)
+
+    @pending_phase
+    def test_ignores_comments(self):
+        tokens = Lexer("# todo esto se ignora\nsalud # y esto también").tokenize()
+        self.assertEqual([(t.type, t.value) for t in tokens], [
+            (TokenType.IDENTIFIER, "salud"),
+            (TokenType.EOF, ""),
+        ])
+
+    @pending_phase
+    def test_money_decimal_and_integer(self):
+        tokens = Lexer("$1.750.905 $500 1.25 240").tokenize()
+        self.assertEqual([(t.type, t.value) for t in tokens[:-1]], [
+            (TokenType.MONEY, "$1.750.905"),
+            (TokenType.MONEY, "$500"),
+            (TokenType.DECIMAL, "1.25"),
+            (TokenType.INTEGER, "240"),
+        ])
+
+    @pending_phase
+    def test_two_character_operators_before_one_character(self):
+        tokens = Lexer("<= >= == != < > =").tokenize()
+        self.assertEqual([(t.type, t.value) for t in tokens[:-1]], [
+            (TokenType.REL_OP, "<="),
+            (TokenType.REL_OP, ">="),
+            (TokenType.REL_OP, "=="),
+            (TokenType.REL_OP, "!="),
+            (TokenType.REL_OP, "<"),
+            (TokenType.REL_OP, ">"),
+            (TokenType.ASSIGN, "="),
+        ])
+
 
 if __name__ == "__main__":
     unittest.main()

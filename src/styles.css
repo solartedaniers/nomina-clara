@@ -304,3 +304,50 @@ app-phase-panel h3 {
   font-weight: 800;
   font-size: 13px;
 }
+
+/* ---------- Colores de sintaxis (editor, tokens y viaje de una línea) ---------- */
+.syn-keyword {
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+.syn-type {
+  color: #0e7490;
+  font-weight: 600;
+}
+
+.syn-money {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.syn-number {
+  color: #c2410c;
+}
+
+.syn-string {
+  color: #a16207;
+}
+
+.syn-identifier {
+  color: #1e293b;
+}
+
+.syn-operator {
+  color: #db2777;
+  font-weight: 600;
+}
+
+.syn-comment {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.syn-punct {
+  color: #64748b;
+}
+
+.syn-invalid {
+  color: var(--danger);
+  text-decoration: wavy underline;
+}

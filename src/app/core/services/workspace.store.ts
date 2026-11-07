@@ -14,6 +14,8 @@ export class WorkspaceStore {
   readonly loading = signal(false);
   readonly requestFailed = signal(false);
   readonly selectedPhase = signal<Exclude<PhaseKey, 'execution'>>('lexer');
+  // Línea del editor elegida para el "viaje de una línea"
+  readonly selectedLine = signal<number | null>(null);
 
   readonly blockingError = computed<CompileError | null>(
     () => this.response()?.errors.find((error) => !error.pending) ?? null,
@@ -34,6 +36,7 @@ export class WorkspaceStore {
     if (sample) {
       this.source.set(sample.source);
       this.response.set(null);
+      this.selectedLine.set(null);
     }
   }
 

@@ -19,7 +19,9 @@
     "title": "Editor de reglas",
     "hint": "Lenguaje Nómina Clara",
     "line": "línea {{line}}",
-    "lines": "{{count}} líneas"
+    "lines": "{{count}} líneas",
+    "position": "línea {{line}}, columna {{col}}",
+    "selectHint": "Haz clic en una línea (o en su número) para ver su viaje por las 7 fases."
   },
   "employees": {
     "title": "Empleados",

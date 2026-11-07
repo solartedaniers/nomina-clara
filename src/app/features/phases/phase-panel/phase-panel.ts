@@ -41,13 +41,22 @@ const PHASE_ICONS: Record<string, string> = {
 
       @switch (status()) {
         @case (null) {
-          <p class="empty">{{ 'panel.idle' | t }}</p>
+          <p class="empty-state">
+            <span class="empty-icon"><app-icon name="cursor" [size]="22" /></span>
+            <span><strong>{{ 'panel.idle.title' | t }}</strong>{{ 'panel.idle.text' | t }}</span>
+          </p>
         }
         @case ('pending') {
-          <p class="empty">{{ 'panel.pending' | t }}</p>
+          <p class="empty-state pending">
+            <span class="empty-icon"><app-icon name="hourglass" [size]="22" /></span>
+            <span><strong>{{ 'panel.pending.title' | t }}</strong>{{ 'panel.pending.text' | t: { week: (definition().weekKey | t) } }}</span>
+          </p>
         }
         @case ('skipped') {
-          <p class="empty">{{ 'panel.skipped' | t }}</p>
+          <p class="empty-state">
+            <span class="empty-icon"><app-icon name="route" [size]="22" /></span>
+            <span><strong>{{ 'panel.skipped.title' | t }}</strong>{{ 'panel.skipped.text' | t }}</span>
+          </p>
         }
         @default {
           @if (status() === 'failed') {
@@ -96,9 +105,6 @@ const PHASE_ICONS: Record<string, string> = {
       flex: 1;
       min-height: 0;
       overflow: auto;
-    }
-    .empty {
-      color: var(--text-muted);
     }
   `,
 })

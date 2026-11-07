@@ -33,12 +33,17 @@ import { Icon } from './shared/icon/icon';
             <option [value]="sample.id">{{ sample.labelKey | t }}</option>
           }
         </select>
-        <button type="button" class="button-accent" [disabled]="store.loading()" (click)="store.compile()">
-          <app-icon name="play" [size]="14" />
+        <button type="button" class="button-accent" [disabled]="store.loading()" [attr.aria-busy]="store.loading()" (click)="store.compile()">
+          @if (store.loading()) {
+            <span class="spinner" aria-hidden="true"></span>
+          } @else {
+            <app-icon name="play" [size]="14" />
+          }
           {{ (store.loading() ? 'app.compiling' : 'app.compile') | t }}
         </button>
       </div>
     </header>
+    <div class="progress" [class.active]="store.loading()" aria-hidden="true"></div>
 
     @if (store.requestFailed()) {
       <p class="error-box banner">{{ 'app.requestFailed' | t }}</p>
@@ -140,6 +145,19 @@ import { Icon } from './shared/icon/icon';
     .button-accent:disabled {
       opacity: 0.8;
       cursor: progress;
+    }
+    /* Barra fina bajo el encabezado mientras el compilador responde */
+    .progress {
+      height: 3px;
+      background: transparent;
+    }
+    .progress.active {
+      background: linear-gradient(90deg, transparent, var(--accent), transparent) 0 0 / 40% 100% no-repeat;
+      animation: progress 1s ease-in-out infinite;
+    }
+    @keyframes progress {
+      from { background-position: -40% 0; }
+      to { background-position: 140% 0; }
     }
     .banner {
       margin: 16px 24px 0;

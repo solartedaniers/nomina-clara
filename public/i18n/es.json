@@ -67,9 +67,9 @@
     "idle": "Sin compilar"
   },
   "panel": {
-    "idle": "Presiona \"Compilar y liquidar\" para ver esta fase.",
-    "pending": "Esta fase todavía no está implementada en el compilador.",
-    "skipped": "El programa no llegó a esta fase porque una fase anterior falló o está pendiente."
+    "idle": { "title": "Todavía no has compilado", "text": "Presiona «Compilar y liquidar» para ver el resultado de esta fase." },
+    "pending": { "title": "Fase pendiente de implementar", "text": "Esta fase todavía no está implementada en el compilador ({{week}})." },
+    "skipped": { "title": "El programa no llegó a esta fase", "text": "Una fase anterior falló o está pendiente, así que esta no se ejecutó." }
   },
   "symbols": {
     "name": "Identificador",
@@ -98,6 +98,6 @@
     "total": "Total nómina",
     "employee": "Empleado",
     "pay": "Neto a pagar",
-    "empty": "Aparece cuando el programa pasa todas las fases."
+    "empty": "Todavía no hay nómina para mostrar: aparece cuando el programa pasa las 7 fases."
   }
 }

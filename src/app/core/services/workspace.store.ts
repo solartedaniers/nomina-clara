@@ -19,12 +19,14 @@ export class WorkspaceStore {
     () => this.response()?.errors.find((error) => !error.pending) ?? null,
   );
 
-  readonly pendingPhases = computed(() =>
-    (this.response()?.errors ?? []).filter((error) => error.pending).map((error) => error.phase),
-  );
-
   statusOf(phase: PhaseKey): PhaseStatus | null {
     return this.response()?.status[phase] ?? null;
+  }
+
+  // Error que reportó una fase: el lexer y el parser lo reportan como "lexical" y "syntax"
+  errorFor(phase: PhaseKey): CompileError | null {
+    const names: Partial<Record<PhaseKey, string>> = { lexer: 'lexical', parser: 'syntax', semantic: 'semantic' };
+    return this.response()?.errors.find((error) => !error.pending && (error.phase === phase || error.phase === names[phase])) ?? null;
   }
 
   loadSample(sampleId: string): void {

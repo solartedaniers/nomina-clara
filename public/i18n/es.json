@@ -5,8 +5,7 @@
     "subtitle": "Compilador de reglas de nómina para pequeñas empresas de Pasto",
     "compile": "Compilar y liquidar",
     "compiling": "Compilando…",
-    "requestFailed": "No se pudo contactar la API del compilador. Si estás en local, revisa que dev_server.py esté corriendo.",
-    "pendingPhases": "Fases todavía sin implementar: {{phases}}"
+    "requestFailed": "No se pudo contactar la API del compilador. Si estás en local, revisa que dev_server.py esté corriendo."
   },
   "samples": {
     "label": "Programas de ejemplo",
@@ -47,15 +46,23 @@
   "phases": {
     "bar": "Fases del compilador",
     "prefix": "Fase {{number}}",
-    "legend": "Verde: pasó · Rojo: falló aquí · Amarillo: pendiente de implementar · Gris: no se alcanzó",
+    "legend": { "passed": "Pasó", "failed": "Falló aquí", "pending": "Pendiente de implementar", "skipped": "No se alcanzó" },
     "lexer": { "label": "Lexer", "title": "Análisis léxico (tokens)", "week": "Semana 2" },
     "parser": { "label": "Parser", "title": "Análisis sintáctico (AST)", "week": "Semanas 3 y 4" },
-    "semantic": { "label": "Tabla", "title": "Tabla de símbolos y tipos", "week": "Semanas 5 y 6" },
+    "semantic": { "label": "Tabla y tipos", "title": "Tabla de símbolos y tipos", "week": "Semanas 5 y 6" },
     "ir": { "label": "TAC", "title": "Código intermedio (TAC)", "week": "Semana 7" },
     "memory": { "label": "Memoria", "title": "Gestión de memoria", "week": "Semana 8" },
-    "optimizer": { "label": "Optim.", "title": "Optimización del TAC", "week": "Semana 9" },
-    "codegen": { "label": "ASM", "title": "Código objetivo y registros", "week": "Semana 10" },
+    "optimizer": { "label": "Optimización", "title": "Optimización del TAC", "week": "Semana 9" },
+    "codegen": { "label": "Código objetivo", "title": "Código objetivo y registros", "week": "Semana 10" },
     "execution": { "label": "Ejecución" }
+  },
+  "status": {
+    "passed": "Pasó",
+    "failed": "Falló",
+    "failedAt": "Falló · línea {{line}}",
+    "pending": "Pendiente",
+    "skipped": "No alcanzada",
+    "idle": "Sin compilar"
   },
   "panel": {
     "idle": "Presiona \"Compilar y liquidar\" para ver esta fase.",

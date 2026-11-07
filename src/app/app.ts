@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { SAMPLE_PROGRAMS } from './core/data/sample-programs';
-import { I18nService } from './core/i18n/i18n.service';
 import { TranslatePipe } from './core/i18n/translate.pipe';
 import { WorkspaceStore } from './core/services/workspace.store';
 import { EmployeeTable } from './features/editor/employee-table/employee-table';
@@ -43,9 +42,6 @@ import { Icon } from './shared/icon/icon';
 
     @if (store.requestFailed()) {
       <p class="error-box banner">{{ 'app.requestFailed' | t }}</p>
-    }
-    @if (store.pendingPhases().length) {
-      <p class="warning-box banner">{{ 'app.pendingPhases' | t: { phases: pendingLabels() } }}</p>
     }
 
     <app-phase-bar class="pipeline" />
@@ -191,14 +187,6 @@ import { Icon } from './shared/icon/icon';
 export class App {
   protected readonly store = inject(WorkspaceStore);
   protected readonly samples = SAMPLE_PROGRAMS;
-  private readonly i18n = inject(I18nService);
-
-  protected pendingLabels(): string {
-    return this.store
-      .pendingPhases()
-      .map((phase) => this.i18n.translate(`phases.${phase}.label`))
-      .join(', ');
-  }
 
   protected onSampleChange(event: Event): void {
     this.store.loadSample((event.target as HTMLSelectElement).value);

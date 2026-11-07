@@ -260,3 +260,47 @@ app-phase-panel h3 {
   border: 1px solid #fde68a;
   color: #92400e;
 }
+
+/* ---------- Colores de las 7 fases (diapositiva del profesor) ---------- */
+.phase-lexer {
+  --phase-color: #3b82f6;
+}
+
+.phase-parser {
+  --phase-color: #1e40af;
+}
+
+.phase-semantic {
+  --phase-color: #0ea5a4;
+}
+
+.phase-ir {
+  --phase-color: #16a34a;
+}
+
+.phase-memory {
+  --phase-color: #eab308;
+  --phase-ink: #3b2f00;
+}
+
+.phase-optimizer {
+  --phase-color: #f97316;
+}
+
+.phase-codegen {
+  --phase-color: #dc2626;
+}
+
+/* Número de la fase sobre su color */
+.phase-number {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--phase-color);
+  color: var(--phase-ink, #fff);
+  font-weight: 800;
+  font-size: 13px;
+}

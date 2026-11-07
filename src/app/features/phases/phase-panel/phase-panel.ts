@@ -115,11 +115,7 @@ export class PhasePanel {
   protected readonly status = computed(() => this.store.statusOf(this.definition().key));
 
   protected readonly failureMessage = computed(() => {
-    const key = this.definition().key;
-    const phaseNames: Record<string, string> = { lexer: 'lexical', parser: 'syntax', semantic: 'semantic' };
-    const error = this.store
-      .response()
-      ?.errors.find((item) => item.phase === key || item.phase === phaseNames[key]);
+    const error = this.store.errorFor(this.definition().key);
     return error ? `${error.message}${error.line ? ` (${this.i18n.translate('editor.line', { line: error.line })})` : ''}` : '';
   });
 }

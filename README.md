@@ -22,16 +22,18 @@ Necesito Node 20 o superior y Python 3.10 o superior. El compilador no usa libre
 
 ```bash
 npm install
-python3 dev_server.py     # terminal 1: API en http://localhost:3000/api/compile
+python dev_server.py      # terminal 1: API en http://localhost:3000/api/compile
 npm start                 # terminal 2: página en http://localhost:4200
 ```
+
+En Mac o Linux, si `python` no existe, usen `python3` en todos los comandos.
 
 Angular redirige `/api` al servidor de Python con `proxy.conf.json`, así que la página funciona igual que en Vercel.
 
 ## Pruebas
 
 ```bash
-python3 -m unittest discover -s tests -t .
+python -m unittest discover -s tests -t .
 ```
 
 Las pruebas de una fase pendiente salen como `skipped`. A medida que implementamos cada fase, sus pruebas empiezan a correr de verdad. Las pruebas usan los programas de `examples/`.

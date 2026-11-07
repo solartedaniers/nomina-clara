@@ -36,7 +36,7 @@ const LEGEND = ['keyword', 'type', 'money', 'number', 'string', 'identifier', 'o
           </div>
         }
       </div>
-      <app-money-dfa [value]="selectedMoney()" />
+      <app-money-dfa [(value)]="selectedMoney" />
     }
   `,
   styles: `
@@ -100,8 +100,8 @@ export class TokensPanel {
   protected readonly store = inject(WorkspaceStore);
   protected readonly legend = LEGEND;
   protected readonly classOf = syntaxClass;
-  // Valor MONEY elegido para resaltar su recorrido en el autómata
-  protected readonly selectedMoney = signal<string | null>(null);
+  // Valor que se prueba en el autómata: el chip MONEY elegido o lo que se escriba en el campo
+  protected readonly selectedMoney = signal('');
 
   protected readonly groups = computed(() => {
     const groups: { line: number; tokens: TokenDto[] }[] = [];

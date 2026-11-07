@@ -86,7 +86,9 @@
   },
   "moneyDfa": {
     "title": "Autómata del token MONEY",
-    "hint": "Haz clic en un token MONEY para ver su recorrido por los estados.",
+    "hint": "Haz clic en un token MONEY o escribe un valor para ver su recorrido por los estados.",
+    "try": "Probar un valor",
+    "tryPlaceholder": "Ejemplo: $1.7509",
     "accepted": "Aceptado: termina en {{state}}, que es estado de aceptación.",
     "stuck": "Rechazado: en {{state}} no hay transición con '{{char}}'.",
     "notAccepting": "Rechazado: termina en {{state}}, que no es estado de aceptación.",

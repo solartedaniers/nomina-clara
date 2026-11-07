@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, model } from '@angular/core';
 import { TranslatePipe } from '../../../../../core/i18n/translate.pipe';
 import { MONEY_ACCEPTING, MONEY_PATTERN, MONEY_STATES, MoneyState, traceMoney } from './money-automaton';
 
@@ -83,7 +83,7 @@ const EDGES: Edge[] = [
         </defs>
 
         <!-- Flecha de inicio hacia q0 -->
-        <path d="M 8 70 L 35 70" class="edge" [class.active]="value()" marker-end="url(#dfa-arrow)" />
+        <path d="M 8 70 L 35 70" class="edge" [class.active]="trace()" marker-end="url(#dfa-arrow)" />
 
         @for (edge of edges; track edge.key) {
           @let active = usedEdges().has(edge.key);
@@ -112,6 +112,12 @@ const EDGES: Edge[] = [
         <span><i class="ring visited"></i>{{ 'moneyDfa.legend.path' | t }}</span>
       </p>
 
+      <label class="try">
+        {{ 'moneyDfa.try' | t }}
+        <input [value]="value()" (input)="value.set($any($event.target).value)"
+          [placeholder]="'moneyDfa.tryPlaceholder' | t" spellcheck="false" autocomplete="off" />
+      </label>
+
       @if (trace(); as trace) {
         <div class="path" [class.rejected]="!trace.accepted">
           <strong>{{ value() }}</strong>
@@ -119,6 +125,9 @@ const EDGES: Edge[] = [
             <span class="step-state">q0</span>
             @for (step of trace.steps; track $index) {
               <span class="step-char">{{ step.char }}</span><span class="step-state">{{ step.to }}</span>
+            }
+            @if (trace.stuckAt) {
+              <span class="step-char stuck">{{ trace.stuckAt }}</span><span class="step-state stuck">✕</span>
             }
           </span>
           <span class="verdict">
@@ -286,6 +295,27 @@ const EDGES: Edge[] = [
       font-weight: 700;
       color: #15803d;
     }
+    .try {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .try input {
+      flex: 1;
+      max-width: 260px;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font: 13px var(--mono);
+    }
+    .path.rejected strong,
+    .stuck {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
     .verdict {
       color: var(--text-muted);
     }
@@ -295,7 +325,8 @@ const EDGES: Edge[] = [
   `,
 })
 export class MoneyDfa {
-  readonly value = input<string | null>(null);
+  // Valor que se prueba: llega del chip MONEY elegido o se escribe en el campo
+  readonly value = model('');
 
   protected readonly states = MONEY_STATES;
   protected readonly positions = POSITIONS;

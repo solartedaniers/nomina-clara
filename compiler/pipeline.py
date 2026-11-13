@@ -97,13 +97,18 @@ class CompilerPipeline:
 
         # La fase de memoria (Semana 8) se observa mientras la máquina virtual ejecuta la nómina
         memory = MemoryManager()
-        payroll = self._run_phase("execution", lambda: VirtualMachine(memory).run(final_tac, self.employees))
+        payroll = self._run_phase("execution", lambda: VirtualMachine(memory, self._function_params(program)).run(final_tac, self.employees))
         self.status["memory"] = self.status["execution"]
         self.phases["memory"] = memory.snapshot()
         if payroll is not None:
             self.payroll = payroll
 
         return self._response()
+
+    @staticmethod
+    def _function_params(program) -> Dict[str, List[str]]:
+        # La máquina virtual necesita los nombres de los parámetros para cargarlos en el frame de la llamada
+        return {function.name: [p.name for p in function.parameters] for function in program.functions}
 
     def _response(self) -> dict:
         blocking = [e for e in self.errors if not e.get("pending")]

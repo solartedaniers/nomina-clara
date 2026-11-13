@@ -30,7 +30,7 @@ import { WorkspaceStore } from '../../../core/services/workspace.store';
               <tr>
                 <td>{{ entry.name }}</td>
                 @for (column of columns(); track column) {
-                  <td class="number">{{ format(entry.values[column]) }}</td>
+                  <td class="number">{{ format(entry.values[column], column) }}</td>
                 }
                 <td class="number strong">{{ money(entry.pay) }}</td>
               </tr>
@@ -76,7 +76,11 @@ export class PayrollTable {
     return this.formatter.format(value);
   }
 
-  protected format(value: number | string | undefined): string {
-    return typeof value === 'number' ? this.formatter.format(value) : (value ?? '');
+  // Las horas extra son una cantidad, no dinero
+  protected format(value: number | string | undefined, column: string): string {
+    if (typeof value !== 'number') {
+      return value ?? '';
+    }
+    return column === 'extras' ? String(value) : this.formatter.format(value);
   }
 }

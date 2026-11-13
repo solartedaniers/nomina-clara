@@ -161,13 +161,18 @@
     "type": "Tipo",
     "scope": "Ámbito",
     "address": "Dirección",
-    "kind": "Clase"
+    "kind": "Clase",
+    "line": "Línea"
   },
   "memory": {
     "data": "Segmento Data",
     "stack": "Stack (frames)",
     "heap": "Heap",
-    "events": "Eventos"
+    "events": "Eventos",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "step": "Paso {{step}} de {{total}}",
+    "peak": "Mapa en el punto más profundo de la pila"
   },
   "optimizer": {
     "before": "Antes ({{count}} instrucciones)",

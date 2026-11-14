@@ -90,6 +90,40 @@ para cada empleado {
 }
 `,
   },
+  {
+    id: 'optimization',
+    labelKey: 'samples.optimization',
+    source: `# Valido: cadena de constantes que el optimizador pliega y propaga
+constante SMMLV: dinero = $1.750.905
+constante AUXILIO: dinero = $249.095
+constante TOPE_AUXILIO: dinero = 2 * SMMLV
+constante PRIMA: dinero = SMMLV / 2
+constante DESCUENTO: decimal = 0.04 + 0.04
+
+para cada empleado {
+    devengado: dinero = salario + PRIMA
+    si salario <= TOPE_AUXILIO {
+        devengado = devengado + AUXILIO
+    } sino {
+        devengado = devengado - $10.000 * 2
+    }
+    pagar devengado - salario * DESCUENTO
+}
+`,
+  },
+  {
+    id: 'division',
+    labelKey: 'samples.division',
+    source: `# Error de ejecucion: el optimizador pliega 2 - 2 en 0 y deja a la vista la division por cero
+constante SMMLV: dinero = $1.750.905
+constante DIAS: entero = 2 - 2
+
+para cada empleado {
+    valor_dia: dinero = salario / DIAS
+    pagar valor_dia
+}
+`,
+  },
 ];
 
 export const DEFAULT_EMPLOYEES: Employee[] = [

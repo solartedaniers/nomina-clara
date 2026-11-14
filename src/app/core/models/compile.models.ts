@@ -64,10 +64,20 @@ export interface SpillDto {
   address: string;
 }
 
+export interface AssemblyComparisonDto {
+  professorSpills: number;
+  freeingSpills: number;
+  freeingLines: string[];
+}
+
 export interface AssemblyDto {
   lines: string[];
   spills: SpillDto[];
   unsupported: string[];
+  // Estado final de R0, R1 y R2 (null si quedó libre)
+  registers?: Record<string, string | null>;
+  // Opcional: spills del asignador del profesor vs. liberando temporales muertas
+  comparison?: AssemblyComparisonDto;
 }
 
 export interface MemoryDto {

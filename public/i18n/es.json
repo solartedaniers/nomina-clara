@@ -13,7 +13,9 @@
     "lexical": "Ejemplo: error léxico",
     "syntax": "Ejemplo: error sintáctico",
     "semantic": "Ejemplo: error de tipos",
-    "spill": "Ejemplo: caso con spill"
+    "spill": "Ejemplo: caso con spill",
+    "optimization": "Ejemplo: optimización de constantes",
+    "division": "Ejemplo: división por cero"
   },
   "editor": {
     "title": "Editor de reglas",
@@ -174,14 +176,34 @@
     "step": "Paso {{step}} de {{total}}",
     "peak": "Mapa en el punto más profundo de la pila"
   },
+  "tac": {
+    "instructions": "{{count}} instrucciones",
+    "temps": "{{count}} temporales",
+    "labels": "{{count}} etiquetas",
+    "line": "Línea del programa"
+  },
   "optimizer": {
     "before": "Antes ({{count}} instrucciones)",
     "after": "Después ({{count}} instrucciones)",
-    "steps": "Cambios aplicados"
+    "steps": "Cambios aplicados",
+    "removed": "{{count}} instrucción(es) menos",
+    "noChanges": "El TAC ya estaba optimizado: no hubo cambios.",
+    "kinds": { "folding": "Plegado", "propagation": "Propagación", "copies": "Copias" }
   },
   "assembly": {
     "spills": "{{count}} spill(s) a la RAM: los registros R0, R1 y R2 se llenaron",
-    "unsupported": "Instrucciones TAC aún sin traducir"
+    "unsupported": "Instrucciones TAC aún sin traducir",
+    "registers": "Registros en el momento más ocupado",
+    "free": "libre",
+    "spillTable": "Spills a la RAM",
+    "variable": "Variable",
+    "register": "Registro",
+    "address": "Dirección",
+    "comparison": "Opcional: liberar el registro de una temporal que ya no se usa",
+    "professor": "Asignador del profesor: {{count}} spill(s)",
+    "freeing": "Liberando temporales: {{count}} spill(s)",
+    "showFreeing": "Ver ensamblador liberando registros",
+    "showProfessor": "Ver ensamblador del profesor"
   },
   "payroll": {
     "title": "Resultado de nómina",

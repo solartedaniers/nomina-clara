@@ -74,7 +74,7 @@ const PHASE_ICONS: Record<string, string> = {
               <app-symbols-panel [symbols]="phases?.symbols ?? []" />
             }
             @case ('ir') {
-              <app-tac-panel [lines]="phases?.tac?.text ?? []" />
+              <app-tac-panel [tac]="phases?.tac" />
             }
             @case ('memory') {
               <app-memory-panel [memory]="phases?.memory" />
